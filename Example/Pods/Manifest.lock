@@ -1,0 +1,16 @@
+PODS:
+  - WKWebViewCache (0.1.0)
+
+DEPENDENCIES:
+  - WKWebViewCache (from `../`)
+
+EXTERNAL SOURCES:
+  WKWebViewCache:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  WKWebViewCache: 8d8974858909b1d343fb24a892585f80143e6077
+
+PODFILE CHECKSUM: 2e5d74744cc4e49174e02dc71c1b418fe1ff14ca
+
+COCOAPODS: 1.5.3
