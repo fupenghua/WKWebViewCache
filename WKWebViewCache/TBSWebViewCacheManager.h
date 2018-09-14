@@ -12,6 +12,7 @@ typedef NSMutableURLRequest *(^WebviewResetURLRequestHandler)(NSURLRequest *requ
 typedef BOOL(^WebviewVerifiedDomainsHandler)(NSURL *url);
 typedef BOOL(^WebviewDomainWhitelistHandler)(NSURL *url);
 typedef BOOL(^WebviewCacheDomainsHandler)(NSURL *url);
+typedef NSString *(^NewDomainsHandler)(NSString *domain);
 @interface TBSWebViewCacheManager : NSObject
 /**
  缓存文件夹路径  可自定义  也可不设置
@@ -31,7 +32,12 @@ typedef BOOL(^WebviewCacheDomainsHandler)(NSURL *url);
 /**
  通过request的domain处理是否进行缓存逻辑，返回YES 会加入离线缓存 该属性不实现默认都加入缓存
  */
-@property (nonatomic, copy) WebviewCacheDomainsHandler webviewCacheDomainsHandler;  //
+@property (nonatomic, copy) WebviewCacheDomainsHandler webviewCacheDomainsHandler;
+
+/**
+ 如果在webviewResetURLRequestHandler中修改的request的domain  则一定要实现改block返回对应的domain
+ */
+@property (nonatomic, copy) NewDomainsHandler getNewDomain;
 
 @property (nonatomic, readonly) NSCache *memoryCache;
 

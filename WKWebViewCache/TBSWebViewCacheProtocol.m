@@ -109,7 +109,7 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
 - (NSString *)pathString {
     NSString *DNSIp = self.request.URL.host;
     NSString *scheme = [NSString stringWithFormat:@"%@://%@",self.request.URL.scheme,DNSIp];
-    NSString *domainStr = getDataForKey(scheme);
+    NSString *domainStr = TBSWebViewCacheManager.share.getNewDomain(scheme);
     
     NSString *domain = self.request.URL.host;
     NSString *pathName = [self.request.URL.path stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
