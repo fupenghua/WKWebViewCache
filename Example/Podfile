@@ -1,0 +1,6 @@
+use_frameworks!
+target 'WKWebViewCache_Tests' do
+  pod 'WKWebViewCache', :path => '../'
+  
+  
+end
