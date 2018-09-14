@@ -8,18 +8,41 @@
 
 #import "NSURLProtocol+WebKitSupport.h"
 
+@interface NSString(Utils)
+
+@end
+
+@implementation NSString(Utils)
+- (NSString*)encodeBase64 {
+    NSString *dataStr = self;
+    NSData *data = [dataStr dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    NSString *base64String = [data base64EncodedStringWithOptions:0];
+    return base64String;
+}
+
+- (NSString*)decodeBase64 {
+    
+    NSData *nsdataFromBase64String = [[NSData alloc]
+                                      initWithBase64EncodedString:self options:0];
+    
+    NSString *base64Decoded = [[NSString alloc]
+                               initWithData:nsdataFromBase64String encoding:NSUTF8StringEncoding];
+    return base64Decoded;
+}
+@end
+
 FOUNDATION_STATIC_INLINE Class ContextControllerClass() {
     static Class cls;
     if (!cls) {
         NSString *key = @"V0tCcm93c2luZ0NvbnRleHRDb250cm9sbGVy";
-        cls = NSClassFromString([key decodeBase64String]);
+        cls = NSClassFromString([key decodeBase64]);
     }
     return cls;
 }
 
 FOUNDATION_STATIC_INLINE SEL RegisterSchemeSelector() {
     NSString *key = @"cmVnaXN0ZXJTY2hlbWVGb3JDdXN0b21Qcm90b2NvbDo=";
-    return NSSelectorFromString([key decodeBase64String]);
+    return NSSelectorFromString([key decodeBase64]);
 }
 
 @implementation NSURLProtocol (WebKitSupport)
