@@ -45,11 +45,27 @@ FOUNDATION_STATIC_INLINE SEL RegisterSchemeSelector() {
     return NSSelectorFromString([key decodeBase64]);
 }
 
+FOUNDATION_STATIC_INLINE SEL UnregisterSchemeSelector() {
+    NSString *key = @"dW5yZWdpc3RlclNjaGVtZUZvckN1c3RvbVByb3RvY29sOg==";
+    return NSSelectorFromString([key decodeBase64]);
+}
+
 @implementation NSURLProtocol (WebKitSupport)
 
 + (void)wk_registerScheme:(NSString *)scheme {
     Class cls = ContextControllerClass();
     SEL sel = RegisterSchemeSelector();
+    if ([(id)cls respondsToSelector:sel]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [(id)cls performSelector:sel withObject:scheme];
+#pragma clang diagnostic pop
+    }
+}
+
++ (void)wk_unregisterScheme:(NSString *)scheme {
+    Class cls = ContextControllerClass();
+    SEL sel = UnregisterSchemeSelector();
     if ([(id)cls respondsToSelector:sel]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"

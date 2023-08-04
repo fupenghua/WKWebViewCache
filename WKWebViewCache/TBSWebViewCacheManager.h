@@ -53,6 +53,8 @@ typedef NSString *(^NewDomainsHandler)(NSString *domain);
  */
 + (void)registerURLProtocol;
 
++ (void)unregisterURLProtocol;
+
 /**
  清除内存
  */

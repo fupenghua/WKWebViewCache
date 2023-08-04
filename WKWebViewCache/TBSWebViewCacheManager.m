@@ -71,6 +71,16 @@ static NSDictionary *replaceRequestFileWithLocalFile = nil;
     [TBSWebViewCacheManager share];
     [NSURLProtocol registerClass:NSClassFromString(@"TBSWebViewCacheProtocol")];
 }
+
++ (void)unregisterURLProtocol {
+    if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 9.0) {
+        for (NSString* scheme in @[@"http", @"https"]) {
+            [NSURLProtocol wk_unregisterScheme:scheme];
+        }
+    }
+    [NSURLProtocol unregisterClass:NSClassFromString(@"TBSWebViewCacheProtocol")];
+}
+
 //计算单个文件大小返回值是M
 
 + (float)fileSizeAtPath:(NSString *)path {
