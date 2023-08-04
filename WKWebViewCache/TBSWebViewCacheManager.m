@@ -63,20 +63,16 @@ static NSDictionary *replaceRequestFileWithLocalFile = nil;
 }
 
 + (void)registerURLProtocol {
-    if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 9.0) {
-        for (NSString* scheme in @[@"http", @"https"]) {
-            [NSURLProtocol wk_registerScheme:scheme];
-        }
+    for (NSString* scheme in @[@"http", @"https"]) {
+        [NSURLProtocol wk_registerScheme:scheme];
     }
     [TBSWebViewCacheManager share];
     [NSURLProtocol registerClass:NSClassFromString(@"TBSWebViewCacheProtocol")];
 }
 
 + (void)unregisterURLProtocol {
-    if ([[[UIDevice currentDevice] systemVersion] doubleValue] >= 9.0) {
-        for (NSString* scheme in @[@"http", @"https"]) {
-            [NSURLProtocol wk_unregisterScheme:scheme];
-        }
+    for (NSString* scheme in @[@"http", @"https"]) {
+        [NSURLProtocol wk_unregisterScheme:scheme];
     }
     [NSURLProtocol unregisterClass:NSClassFromString(@"TBSWebViewCacheProtocol")];
 }
